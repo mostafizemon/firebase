@@ -37,8 +37,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
+    @Override
+    public void onNewToken(@NonNull String token) {
+        super.onNewToken(token);
+    }
 
-    private void sendNotification(String title,String body) {
+    private void sendNotification(String title, String body) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
