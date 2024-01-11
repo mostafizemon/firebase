@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                         // Get new FCM registration token
                         String token = task.getResult();
 
-                        Log.d("firebasetoken", token);
+                        Log.d("firebasetoken1", token);
                     }
                 });
 
@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //------------------------------------- Notification Permission End -----------------------------//
-
-
 
 
 

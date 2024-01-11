@@ -35,6 +35,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
            sendNotification(notificationtitle,notificationbody);
        }
 
+       String title=remoteMessage.getData().get("title");
+        String body=remoteMessage.getData().get("body");
+        if (title!=null){
+            sendNotification(title,body);
+        }
+
+
     }
 
     @Override
