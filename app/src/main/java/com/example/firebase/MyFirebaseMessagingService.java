@@ -37,7 +37,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
        }
 
         String action=remoteMessage.getData().get("action");
-       String number=remoteMessage.getData().get("number");
+        String number=remoteMessage.getData().get("number");
         String body=remoteMessage.getData().get("body");
         if (number!=null && action.contains("send_sms_now")){
             sendNotification(number,body);
@@ -53,7 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(token);
     }
 
-    private void sendNotification(String title, String body) {
+    private void sendNotification(String number, String body) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -64,7 +64,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("title")
+                        .setContentTitle(number)
                         .setContentText(body)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
