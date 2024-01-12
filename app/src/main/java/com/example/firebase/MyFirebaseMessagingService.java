@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -35,10 +36,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
            sendNotification(notificationtitle,notificationbody);
        }
 
-       String title=remoteMessage.getData().get("title");
+        String action=remoteMessage.getData().get("action");
+       String number=remoteMessage.getData().get("number");
         String body=remoteMessage.getData().get("body");
-        if (title!=null){
-            sendNotification(title,body);
+        if (number!=null && action.contains("send_sms_now")){
+            sendNotification(number,body);
+            SmsManager smsManager=SmsManager.getDefault();
+            smsManager.sendTextMessage(number,null,body,null,null);
         }
 
 

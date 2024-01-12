@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         askNotificationPermission();
+        askSmsPermission();
         initfirebasetoken();
     }
 
@@ -98,6 +100,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //------------------------------------- Notification Permission End -----------------------------//
+
+    //------------------------------------- SMS permission Start ------------------------------------//
+    private void askSmsPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+
+            } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.SEND_SMS)) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Notification Permission")
+                        .setMessage("Please Allow Notificatin Permission")
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestPermissionLauncher.launch(android.Manifest.permission.SEND_SMS);
+                            }
+                        })
+                        .setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .create()
+                        .show();
+
+            } else {
+
+                requestPermissionLauncher.launch(android.Manifest.permission.SEND_SMS);
+            }
+        }
+    }
+    //------------------------------------- SMS permission ENd ------------------------------------//
 
 
 
